@@ -26,7 +26,7 @@ const LoginModal = ({onLogin}) => {
       localStorage.setItem('user', JSON.stringify(userData));
 
       // Send user data to backend
-      await axios.post('http://localhost:5000/api/save-user', {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/save-user`, {
         id: userData.sub, 
         username: userData.name,
         email: userData.email,

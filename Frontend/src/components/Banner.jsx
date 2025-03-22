@@ -21,7 +21,8 @@ function Banner() {
       try {
         const booksData = await Promise.all(
           bookTitles.map(async (title) => {
-            const response = await fetch(`http://localhost:5000/books?q=${title}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/books?q=${title}`);
+
             if (!response.ok) {
               throw new Error(`Failed to fetch ${title}`);
             }

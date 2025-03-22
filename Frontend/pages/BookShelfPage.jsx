@@ -18,7 +18,7 @@ const BookShelfPage = () => {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:5000/wishlist/${userId}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/wishlist/${userId}`);
       setWishlist(response.data);
     } catch (error) {
       console.error('Error fetching wishlist:', error);
@@ -43,7 +43,7 @@ const BookShelfPage = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:5000/wishlist/${userId}/${bookId}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/wishlist/${userId}/${bookId}`);
       setWishlist((prevWishlist) => prevWishlist.filter((book) => book.id !== bookId));
       alert('Book removed from your bookshelf!');
     } catch (error) {

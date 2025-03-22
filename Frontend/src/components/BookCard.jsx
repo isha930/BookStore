@@ -13,11 +13,12 @@ function BookCard({ book, onRemove }) {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/bookshelf', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/bookshelf`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: parseInt(userId), bookId: parseInt(book.id) }),
       });
+      
 
       if (response.status === 409) {
         alert('This book is already in your bookshelf.');

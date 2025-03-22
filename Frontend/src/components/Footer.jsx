@@ -47,7 +47,7 @@ function Footer() {
           </div>
         </nav>
         <aside>
-          <p>Copyright © 2024 - All right reserved !</p>
+          <p>Copyright © 2025 - All right reserved !</p>
         </aside>
       </footer>
     </div>

@@ -19,7 +19,7 @@ app.use(express.json());
 // Database Pool connection
 const db = new Pool({
   user: process.env.DB_HOST, // Change to the correct variable for the database user
-  host: "localhost",
+  host: "dpg-cv7gfgt2ng1s7385t650-a",
   database: "bookstore_db",
   password: process.env.DB_PASSWORD,
   port: 5432,

@@ -18,12 +18,13 @@ app.use(express.json());
 
 // Database Pool connection
 const db = new Pool({
-  user: process.env.DB_HOST, // Change to the correct variable for the database user
-  host: "dpg-cv7gfgt2ng1s7385t650-a",
-  database: "bookstore_db",
-  password: process.env.DB_PASSWORD,
+  user: "isha",  // Use the correct username
+  host: process.env.DB_HOST, 
+  database: "bookstore_db_5y0r",  // Match with your actual database name
+  password: process.env.DB_PASSWORD,  
   port: 5432,
 });
+
 
 // Function to insert a book into the database
 // Route to fetch books from Google Books API and store in the database

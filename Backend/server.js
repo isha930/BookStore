@@ -12,7 +12,7 @@ const app = express();
 const port = 5000;
 
 app.use(cors());
-app.use(cors({ origin: ['http://localhost:5174','http://localhost:5173'] })); // Adjust with your frontend's port
+app.use(cors({ origin: ['http://localhost:5174','http://localhost:5173','https://book-store-psi-five.vercel.app/'] })); // Adjust with your frontend's port
 
 app.use(express.json());
 

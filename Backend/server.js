@@ -11,8 +11,29 @@ dotenv.config(); // Load environment variables
 const app = express();
 const port = 5000;
 
-app.use(cors());
-app.use(cors({ origin: ['http://localhost:5174','http://localhost:5173','https://book-store-psi-five.vercel.app/'] })); // Adjust with your frontend's port
+const cors = require('cors');
+
+// Whitelist of allowed origins
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'https://book-store-psi-five.vercel.app'
+];
+
+// Proper CORS config
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('CORS not allowed from this origin'), false);
+    }
+  },
+  credentials: true
+}));
+ // Adjust with your frontend's port
 
 app.use(express.json());
 

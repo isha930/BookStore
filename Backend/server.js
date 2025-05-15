@@ -11,7 +11,6 @@ dotenv.config(); // Load environment variables
 const app = express();
 const port = 5000;
 
-const cors = require('cors');
 
 // Whitelist of allowed origins
 const allowedOrigins = [

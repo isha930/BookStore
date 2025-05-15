@@ -18,7 +18,7 @@ const BookShelfPage = () => {
       return;
     }
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/wishlist/${userId}`);
+      const response = await axios.get(`http://localhost:5000/wishlist/${userId}`);
       setWishlist(response.data);
     } catch (error) {
       console.error('Error fetching wishlist:', error);

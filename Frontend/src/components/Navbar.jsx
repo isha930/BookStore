@@ -34,11 +34,17 @@ function Navbar() {
 
   // Check User Login Status
   useEffect(() => {
+  const checkLoginStatus = () => {
     const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+    setIsLoggedIn(!!storedUser);
+  };
+
+  checkLoginStatus();
+
+  window.addEventListener('storage', checkLoginStatus);
+  return () => window.removeEventListener('storage', checkLoginStatus);
+}, []);
+
 
   return (
     <nav

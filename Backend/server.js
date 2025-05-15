@@ -18,13 +18,15 @@ app.use(express.json());
 
 // Database Pool connection
 const db = new Pool({
-  user: "isha",  // Use the correct username
-  host: process.env.DB_HOST, 
-  database: "bookstore_db_5y0r",  // Match with your actual database name
-  password: process.env.DB_PASSWORD,  
-  port: 5432,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+  ssl: {
+    rejectUnauthorized: false,  // Supabase requires SSL, so allow it here
+  },
 });
-
 
 // Function to insert a book into the database
 // Route to fetch books from Google Books API and store in the database

@@ -14,8 +14,6 @@ const port = 5000;
 
 // Whitelist of allowed origins
 const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:5174',
   'https://book-store-psi-five.vercel.app'
 ];
 

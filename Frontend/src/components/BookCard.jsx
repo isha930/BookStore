@@ -7,31 +7,40 @@ function BookCard({ book, onRemove }) {
   if (!book) return null; // Prevent rendering issues if book is undefined
 
   const addToWishlist = async () => {
-    if (!userId) {
-      alert('Please log in to add books to your bookshelf.');
+  if (!userId) {
+    alert('Please log in to add books to your bookshelf.');
+    return;
+  }
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/bookshelf`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: parseInt(userId),
+        bookId: parseInt(book.id),
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.status === 409) {
+      alert('This book is already in your bookshelf.');
       return;
     }
 
-    try {
-      const response = await fetch(`http://localhost:5000/bookshelf`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: parseInt(userId), bookId: parseInt(book.id) }),
-      });
-      
-
-      if (response.status === 409) {
-        alert('This book is already in your bookshelf.');
-        return;
-      }
-
-      if (!response.ok) throw new Error('Unexpected error occurred.');
-
-      alert('Book added to your bookshelf!');
-    } catch (error) {
-      alert('Failed to add book to bookshelf.');
+    if (!response.ok) {
+      console.error('Server error:', data); // 👈 Print exact error
+      throw new Error(data.error || 'Unexpected error occurred.');
     }
-  };
+
+    alert('Book added to your bookshelf!');
+  } catch (error) {
+    console.error('Frontend error:', error); // 👈 Log it
+    alert('Failed to add book to bookshelf.');
+  }
+};
+
 
   return (
     <div className="flex flex-col sm:flex-row items-center gap-6 p-12 my-12  shadow-xl rounded-lg bg-white dark:bg-gray-800 dark:shadow-gray-900 transition-all duration-300 hover:shadow-2xl hover:scale-105">

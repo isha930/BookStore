@@ -24,21 +24,20 @@ function BookStore() {
 
       try {
         let url;
-        if (searchTerm.trim() === '') {
-          // If search is empty, fetch default books
-          const booksData = await Promise.all(
-            defaultBookTitles.map(async (title) => {
-              const response = await fetch(`http://localhost:5000/books?q=${title}`);
-
-              if (!response.ok) throw new Error(`Failed to fetch ${title}`);
-              const data = await response.json();
-              return data.find((book) => book.title.toLowerCase() === title.toLowerCase());
-            })
-          );
-          setBooks(booksData.filter(book => book !== undefined));
-        } else {
+       if (searchTerm.trim() === '') {
+  const booksData = await Promise.all(
+    defaultBookTitles.map(async (title) => {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/books?q=${title}`);
+      if (!response.ok) throw new Error(`Failed to fetch ${title}`);
+      const data = await response.json();
+      return data[0]; // just show first matched result
+    })
+  );
+  setBooks(booksData.filter(book => book !== undefined));
+}
+ else {
           // Fetch books based on search
-          url = `http://localhost:5000/books?q=${searchTerm}`;
+          url = `${import.meta.env.VITE_API_URL}/books?q=${searchTerm}`;
 
           const response = await fetch(url);
           if (!response.ok) throw new Error('Failed to fetch books');

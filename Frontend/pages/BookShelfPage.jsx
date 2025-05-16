@@ -12,20 +12,31 @@ const BookShelfPage = () => {
 
   // Fetch books in the wishlist
   const fetchWishlist = async () => {
-    if (!userId) {
-      alert('Please log in to view your bookshelf.');
-      setLoading(false);
-      return;
-    }
-    try {
-      const response = await axios.get(`http://localhost:5000/wishlist/${userId}`);
+  if (!userId) {
+    setLoading(false);
+    alert('Please log in to view your bookshelf.');
+    return;
+  }
+
+  setLoading(true);
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/wishlist/${userId}`);
+    
+    if (response.status === 200) {
       setWishlist(response.data);
-    } catch (error) {
-      console.error('Error fetching wishlist:', error);
-    } finally {
-      setLoading(false);
+    } else {
+      console.warn('Unexpected response:', response);
+      setWishlist([]); // fallback to empty
     }
-  };
+
+  } catch (error) {
+    console.error('Error fetching wishlist:', error);
+    setWishlist([]); // fallback to empty on error
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     if (userId) fetchWishlist();

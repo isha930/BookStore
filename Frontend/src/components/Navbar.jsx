@@ -87,31 +87,58 @@ function Navbar() {
       </div>
 
       {/* Mobile Dropdown Menu */}
-      {menuOpen && (
-        <div className="md:hidden absolute top-20 left-0 w-full bg-white dark:bg-gray-900 shadow-md flex flex-col items-center space-y-4 py-4 z-40">
-          <Link to="/bookStore" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-gray-800 dark:text-gray-300">
-            📖 Bookstore
-          </Link>
-          {isLoggedIn && (
-            <Link to="/bookshelf" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-gray-800 dark:text-gray-300">
-              📚 My Bookshelf
-            </Link>
-          )}
-          <button
-            onClick={() => {
-              handleThemeToggle();
-              setMenuOpen(false);
-            }}
-            className="text-2xl"
-          >
-            {theme === 'light' ? '🌙' : '☀️'}
-          </button>
-          <LoginModal onLogin={(val) => {
-            setIsLoggedIn(val);
-            setMenuOpen(false);
-          }} />
-        </div>
-      )}
+  {menuOpen && (
+  <div className="md:hidden absolute top-20 left-0 w-full bg-white dark:bg-gray-900 shadow-md flex flex-col items-center space-y-4 py-4 z-40">
+    <Link
+      to="/bookStore"
+      onClick={() => setMenuOpen(false)}
+      className="text-lg font-semibold text-gray-800 dark:text-gray-300"
+    >
+      📖 Bookstore
+    </Link>
+
+    {isLoggedIn && (
+      <Link
+        to="/bookshelf"
+        onClick={() => setMenuOpen(false)}
+        className="text-lg font-semibold text-gray-800 dark:text-gray-300"
+      >
+        📚 My Bookshelf
+      </Link>
+    )}
+
+    <button
+      onClick={() => {
+        handleThemeToggle();
+        setMenuOpen(false);
+      }}
+      className="text-2xl"
+    >
+      {theme === 'light' ? '🌙' : '☀️'}
+    </button>
+
+    {isLoggedIn ? (
+      <button
+        onClick={() => {
+          localStorage.removeItem('user');
+          setIsLoggedIn(false);
+          setMenuOpen(false);
+        }}
+        className="text-red-500 font-semibold"
+      >
+        🚪 Logout
+      </button>
+    ) : (
+      <LoginModal
+        onLogin={(val) => {
+          setIsLoggedIn(val);
+          setMenuOpen(false);
+        }}
+      />
+    )}
+  </div>
+)}
+
     </nav>
   );
 }
